@@ -1,5 +1,5 @@
 # Polygon Central Point Finder
-Finds the point inside a polygon that minimizes the maximum distance to its border.
+Finds the point inside a polygon that minimizes the maximum distance to its border vertices.
 If the centroid is within the polygon, the centroid and the radius of the minimum enclosing circle are returned.
 If the centroid is outside of the polygon, the best fitting point (with an accuracy to be set in m) + the maximum distance from the point to each polygon point are returned
 
@@ -9,10 +9,9 @@ If the centroid is outside of the polygon, the best fitting point (with an accur
 - Writes results to a shapefile (points as point geometry features + distances as attribute)
 
 was inititally designed to derive location + uncertainty for monitoring of amphibia and reptile reports, when only addresses are reported.
-was used on parcels derived from the digital cadasdral map, can be used for any polygons.
-use polygons in a projected coordinate reference system for useful results!
+was used on parcels derived from the digital cadasdral map
 
 ## Usage
 ```python
-from polygon_central_point import process_shapefile
+from polygon_center import process_shapefile
 process_shapefile("input.shp", "output.shp", 0.5)
