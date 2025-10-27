@@ -10,7 +10,7 @@ If the centroid is outside of the polygon, the best fitting point (with an accur
 
 was inititally designed to derive location + uncertainty for monitoring of amphibia and reptile reports, when only addresses are reported.
 was used on parcels derived from the digital cadasdral map, can be used for any polygons.
-use polygons in a projected coordinate reference system for useful results!
+Use polygons in a projected coordinate reference system for useful results!
 
 ## Usage
 ```python

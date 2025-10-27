@@ -441,8 +441,21 @@ def process_shapefile(input_shapefile, output_shapefile, accuracy=0.1):
     """
     # Load the shapefile
     gdf = gpd.read_file(input_shapefile)
+    
+    if gdf.crs is None:
+        raise ValueError("Input shapefile has no CRS defined. Assign a projected CRS (e.g., EPSG:31256).")
+
+    if gdf.crs.is_geographic:
+        raise ValueError(
+            "\n\n ################## \n"
+            f"\n The input CRS ({gdf.crs.to_string()}) is geographic (lat/lon). \n"
+            "This script requires a projected CRS in meters (e.g., UTM or EPSG:31256).\n"
+            "\n ##################"
+        )
+        
+    
     total_rows = len(gdf)  # Total number of rows for the progress bar
-    results = []
+    results = [] 
     
     
 
