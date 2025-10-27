@@ -470,7 +470,7 @@ def process_shapefile(input_shapefile, output_shapefile, accuracy=0.1):
 
             else:
 
-                optimal_point, min_max_distance = find_optimal_point_iterative(polygon, accuracy)
+                optimal_point, min_max_distance = find_optimal_point_iterative(polygon, min_spacing)
 
                 result = row.copy()
                 result['geometry'] = optimal_point
