@@ -442,6 +442,8 @@ def process_shapefile(input_shapefile, output_shapefile, accuracy=0.1):
     # Load the shapefile
     gdf = gpd.read_file(input_shapefile)
     
+    # CRS check
+    
     if gdf.crs is None:
         raise ValueError("Input shapefile has no CRS defined. Assign a projected CRS (e.g., EPSG:31256).")
 
@@ -453,11 +455,36 @@ def process_shapefile(input_shapefile, output_shapefile, accuracy=0.1):
             "\n ##################"
         )
         
+    # Geometry validity check
+    
+    invalid_mask = ~gdf.is_valid
+    
+    if invalid_mask.any():
+        n_invalid = invalid_mask.sum()
+        
+        raise ValueError(
+            "\n\n ################## \n"
+             f"The shapefile contains {n_invalid} invalid geometries "
+             "(self-intersections, bowties, etc.). "
+             "Fix them in QGIS or with GeoPandas: gdf = gdf.buffer(0)."
+             "\n ##################"
+            )   
+
+    # Geometry type check
+    
+    allowed_types = {"Polygon", "MultiPolygon"}
+    geom_types = set(gdf.geom_type.unique())
+    
+    if not geom_types.issubset(allowed_types):
+        raise ValueError(
+            f"The shapefile contains unsupported geometry types: {geom_types}. "
+            "Only Polygon and MultiPolygon geometries are supported."
+        )                
+    
+        
     
     total_rows = len(gdf)  # Total number of rows for the progress bar
     results = [] 
-    
-    
 
     # Iterate through rows with a progress bar
     for idx, row in tqdm(gdf.iterrows(), total=total_rows, desc="Processing rows", unit="row"):
@@ -502,17 +529,19 @@ def process_shapefile(input_shapefile, output_shapefile, accuracy=0.1):
     result_gdf.to_file(output_shapefile)
     print(f"Processing complete. Results saved to {output_shapefile}")
 
+
+
 '''
 
 TESTING
 
-test = "1049"
-wd = f"P:/Projects/23_BIOM-Garten/07_Work_Data/Verortung_Fundmeldungen/datenaufbereitung/251016_datenaufbereitung/geodata/{test}"
+
+wd = ## path to working directory
 
 
 # Paths to input and output shapefiles
-input_shapefile = os.path.join(wd, "GST.shp")
-output_shapefile = os.path.join(wd, "optimized_point.shp")
+input_shapefile = os.path.join(wd, "polygon.shp")
+output_shapefile = os.path.join(wd, "polygon_result.shp")
 #
 
 import time
