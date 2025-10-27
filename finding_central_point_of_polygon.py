@@ -477,8 +477,10 @@ def process_shapefile(input_shapefile, output_shapefile, accuracy=0.1):
     
     if not geom_types.issubset(allowed_types):
         raise ValueError(
+            "\n\n ################## \n"
             f"The shapefile contains unsupported geometry types: {geom_types}. "
             "Only Polygon and MultiPolygon geometries are supported."
+            "\n ##################"
         )                
     
         
