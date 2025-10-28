@@ -15,9 +15,4 @@ Use polygons in a projected coordinate reference system for useful results!
 ## Usage
 ```python
 from finding_central_point_of_polygon import process_shapefile
-
-input_shp = "input.shp" 	# path to your input polygon shape files
-output_shp = "output.shp" 	# path to your output point shape file 
-accuracy = 0.5 				# desired accuracy in m - affects the processing time
-
-process_shapefile(input_shp, output_shp, accuracy)
+process_shapefile("input.shp", "output.shp", 0.5)
