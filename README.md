@@ -1,7 +1,8 @@
 # Polygon Central Point Finder
 Finds the point inside a polygon that minimizes the maximum distance to its border.
 If the centroid is within the polygon, the centroid and the radius of the minimum enclosing circle are returned.
-If the centroid is outside of the polygon, the best fitting point (with an accuracy to be set in m) + the maximum distance from the point to each polygon point are returned
+If the centroid is outside of the polygon, the best fitting point (with an accuracy to be set in m) + the maximum distance from the point to each polygon point are returned.
+The fitting is done using an iterative grid-based approach.
 
 ## Features
 - Works with polygons or multipolygons
